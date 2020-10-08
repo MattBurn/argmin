@@ -96,7 +96,7 @@ pub trait ArgminOp {
     type Float: ArgminFloat;
 
     /// Applies the operator/cost function to parameters
-    fn apply(&self, _param: &Self::Param) -> Result<Self::Output, Error> {
+    fn apply(&mut self, _param: &Self::Param) -> Result<Self::Output, Error> {
         Err(ArgminError::NotImplemented {
             text: "Method `apply` of ArgminOp trait not implemented!".to_string(),
         }
@@ -104,7 +104,7 @@ pub trait ArgminOp {
     }
 
     /// Computes the gradient at the given parameters
-    fn gradient(&self, _param: &Self::Param) -> Result<Self::Param, Error> {
+    fn gradient(&mut self, _param: &Self::Param) -> Result<Self::Param, Error> {
         Err(ArgminError::NotImplemented {
             text: "Method `gradient` of ArgminOp trait not implemented!".to_string(),
         }
@@ -112,7 +112,7 @@ pub trait ArgminOp {
     }
 
     /// Computes the Hessian at the given parameters
-    fn hessian(&self, _param: &Self::Param) -> Result<Self::Hessian, Error> {
+    fn hessian(&mut self, _param: &Self::Param) -> Result<Self::Hessian, Error> {
         Err(ArgminError::NotImplemented {
             text: "Method `hessian` of ArgminOp trait not implemented!".to_string(),
         }
@@ -120,7 +120,7 @@ pub trait ArgminOp {
     }
 
     /// Computes the Hessian at the given parameters
-    fn jacobian(&self, _param: &Self::Param) -> Result<Self::Jacobian, Error> {
+    fn jacobian(&mut self, _param: &Self::Param) -> Result<Self::Jacobian, Error> {
         Err(ArgminError::NotImplemented {
             text: "Method `jacobian` of ArgminOp trait not implemented!".to_string(),
         }
@@ -129,7 +129,7 @@ pub trait ArgminOp {
 
     /// Modifies a parameter vector. Comes with a variable that indicates the "degree" of the
     /// modification.
-    fn modify(&self, _param: &Self::Param, _extent: Self::Float) -> Result<Self::Param, Error> {
+    fn modify(&mut self, _param: &Self::Param, _extent: Self::Float) -> Result<Self::Param, Error> {
         Err(ArgminError::NotImplemented {
             text: "Method `modify` of ArgminOp trait not implemented!".to_string(),
         }

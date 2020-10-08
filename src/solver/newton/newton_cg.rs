@@ -208,7 +208,7 @@ where
     type Jacobian = ();
     type Float = F;
 
-    fn apply(&self, p: &T) -> Result<T, Error> {
+    fn apply(&mut self, p: &T) -> Result<T, Error> {
         Ok(self.hessian.dot(&p))
     }
 }

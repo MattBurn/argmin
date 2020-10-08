@@ -58,31 +58,31 @@ impl<O: ArgminOp> OpWrapper<O> {
     /// Calls the `apply` method of `op` and increments `cost_func_count`.
     pub fn apply(&mut self, param: &O::Param) -> Result<O::Output, Error> {
         self.cost_func_count += 1;
-        self.op.as_ref().unwrap().apply(param)
+        self.op.as_mut().unwrap().apply(param)
     }
 
     /// Calls the `gradient` method of `op` and increments `gradient_func_count`.
     pub fn gradient(&mut self, param: &O::Param) -> Result<O::Param, Error> {
         self.grad_func_count += 1;
-        self.op.as_ref().unwrap().gradient(param)
+        self.op.as_mut().unwrap().gradient(param)
     }
 
     /// Calls the `hessian` method of `op` and increments `hessian_func_count`.
     pub fn hessian(&mut self, param: &O::Param) -> Result<O::Hessian, Error> {
         self.hessian_func_count += 1;
-        self.op.as_ref().unwrap().hessian(param)
+        self.op.as_mut().unwrap().hessian(param)
     }
 
     /// Calls the `jacobian` method of `op` and increments `jacobian_func_count`.
     pub fn jacobian(&mut self, param: &O::Param) -> Result<O::Jacobian, Error> {
         self.jacobian_func_count += 1;
-        self.op.as_ref().unwrap().jacobian(param)
+        self.op.as_mut().unwrap().jacobian(param)
     }
 
     /// Calls the `modify` method of `op` and increments `modify_func_count`.
     pub fn modify(&mut self, param: &O::Param, extent: O::Float) -> Result<O::Param, Error> {
         self.modify_func_count += 1;
-        self.op.as_ref().unwrap().modify(param, extent)
+        self.op.as_mut().unwrap().modify(param, extent)
     }
 
     /// Moves the operator out of the struct and replaces it with `None`
@@ -134,23 +134,23 @@ impl<O: ArgminOp> ArgminOp for OpWrapper<O> {
     type Jacobian = O::Jacobian;
     type Float = O::Float;
 
-    fn apply(&self, param: &Self::Param) -> Result<Self::Output, Error> {
-        self.op.as_ref().unwrap().apply(param)
+    fn apply(&mut self, param: &Self::Param) -> Result<Self::Output, Error> {
+        self.op.as_mut().unwrap().apply(param)
     }
 
-    fn gradient(&self, param: &Self::Param) -> Result<Self::Param, Error> {
-        self.op.as_ref().unwrap().gradient(param)
+    fn gradient(&mut self, param: &Self::Param) -> Result<Self::Param, Error> {
+        self.op.as_mut().unwrap().gradient(param)
     }
 
-    fn hessian(&self, param: &Self::Param) -> Result<Self::Hessian, Error> {
-        self.op.as_ref().unwrap().hessian(param)
+    fn hessian(&mut self, param: &Self::Param) -> Result<Self::Hessian, Error> {
+        self.op.as_mut().unwrap().hessian(param)
     }
 
-    fn jacobian(&self, param: &Self::Param) -> Result<Self::Jacobian, Error> {
-        self.op.as_ref().unwrap().jacobian(param)
+    fn jacobian(&mut self, param: &Self::Param) -> Result<Self::Jacobian, Error> {
+        self.op.as_mut().unwrap().jacobian(param)
     }
 
-    fn modify(&self, param: &Self::Param, extent: Self::Float) -> Result<Self::Param, Error> {
-        self.op.as_ref().unwrap().modify(param, extent)
+    fn modify(&mut self, param: &Self::Param, extent: Self::Float) -> Result<Self::Param, Error> {
+        self.op.as_mut().unwrap().modify(param, extent)
     }
 }

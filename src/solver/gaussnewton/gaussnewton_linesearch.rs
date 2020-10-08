@@ -141,19 +141,19 @@ where
     type Jacobian = O::Jacobian;
     type Float = O::Float;
 
-    fn apply(&self, p: &Self::Param) -> Result<Self::Output, Error> {
+    fn apply(&mut self, p: &Self::Param) -> Result<Self::Output, Error> {
         Ok(self.op.apply(p)?.norm())
     }
 
-    fn gradient(&self, p: &Self::Param) -> Result<Self::Param, Error> {
+    fn gradient(&mut self, p: &Self::Param) -> Result<Self::Param, Error> {
         Ok(self.op.jacobian(p)?.t().dot(&self.op.apply(p)?))
     }
 
-    fn hessian(&self, p: &Self::Param) -> Result<Self::Hessian, Error> {
+    fn hessian(&mut self, p: &Self::Param) -> Result<Self::Hessian, Error> {
         self.op.hessian(p)
     }
 
-    fn jacobian(&self, p: &Self::Param) -> Result<Self::Jacobian, Error> {
+    fn jacobian(&mut self, p: &Self::Param) -> Result<Self::Jacobian, Error> {
         self.op.jacobian(p)
     }
 }
